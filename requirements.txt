@@ -1,0 +1,4 @@
+altair>=5.5.0
+pandas>=2.2.3
+streamlit-nightly>=1.44.2.dev20250415
+yfinance>=0.2.55
