@@ -37,18 +37,18 @@ cols = st.columns([1, 4])
 
 STOCKS = [
     "ITSA4.SA",
-    "WIZC3",
-    "SOJA3",
-    "TAEE11",
-    "GOAU4",
-    "CSAN3",
-    "VALE3",
-    "XPLG11",
-    "MXRF11",
-    "BTHF11",
-    "IRDM11",
-    "RECT11",
-    "HASH11",
+    "WIZC3.SA",
+    "SOJA3.SA",
+    "TAEE11.SA",
+    "GOAU4.SA",
+    "CSAN3.SA",
+    "VALE3.SA",
+    "XPLG11.SA",
+    "MXRF11.SA",
+    "BTHF11.SA",
+    "IRDM11.SA",
+    "RECT11.SA",
+    "HASH11.SA",
 
 ]
 
