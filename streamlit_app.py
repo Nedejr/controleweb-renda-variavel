@@ -1,31 +1,19 @@
 # -*- coding: utf-8 -*-
-# Copyright 2024-2025 Streamlit Inc.
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#    http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-
 import streamlit as st
 import yfinance as yf
 import pandas as pd
 import altair as alt
 
 st.set_page_config(
-    page_title="Dashboard de análise de ações",
+    page_title="ControleWeb - Renda Variável",
     page_icon=":chart_with_upwards_trend:",
     layout="wide",
 )
 
 """
-# :material/query_stats: Análise comparativa de ações
+# :material/query_stats: ControleWeb - Renda Variável
+
+## Análise comparativa de ações
 
 Compare facilmente o desempenho de diferentes ações.
 """
@@ -49,7 +37,6 @@ STOCKS = [
     "IRDM11.SA",
     "RECT11.SA",
     "HASH11.SA",
-
 ]
 
 DEFAULT_STOCKS = [
@@ -152,7 +139,9 @@ def load_data(tickers, period):
 try:
     data = load_data(tickers, horizon_map[horizon])
 except yf.exceptions.YFRateLimitError as e:
-    st.warning("O YFinance está limitando as requisições :(\nTente novamente mais tarde.")
+    st.warning(
+        "O YFinance está limitando as requisições :(\nTente novamente mais tarde."
+    )
     load_data.clear()  # Remove the bad cache entry.
     st.stop()
 
@@ -217,9 +206,9 @@ Para a análise abaixo, a "média do grupo" ao analisar a ação X sempre
 exclui a própria ação X.
 """
 
-if len(tickers) <= 1:
-    st.warning("Escolha 2 ou mais ações para compará-las")
-    st.stop()
+# if len(tickers) <= 1:
+#     st.warning("Escolha 2 ou mais ações para compará-las")
+#     st.stop()
 
 NUM_COLS = 4
 cols = st.columns(NUM_COLS)
@@ -246,7 +235,9 @@ for i, ticker in enumerate(tickers):
             alt.Y("Preço:Q").scale(zero=False),
             alt.Color(
                 "Série:N",
-                scale=alt.Scale(domain=[ticker, "Média do grupo"], range=["red", "gray"]),
+                scale=alt.Scale(
+                    domain=[ticker, "Média do grupo"], range=["red", "gray"]
+                ),
                 legend=alt.Legend(orient="bottom"),
             ),
             alt.Tooltip(["Date", "Série", "Preço"]),
@@ -256,7 +247,7 @@ for i, ticker in enumerate(tickers):
 
     cell = cols[(i * 2) % NUM_COLS].container(border=True)
     cell.write("")
-    cell.altair_chart(chart, use_container_width=True)
+    cell.altair_chart(chart, width="stretch")
 
     # Create Delta chart
     plot_data = pd.DataFrame(
@@ -278,7 +269,7 @@ for i, ticker in enumerate(tickers):
 
     cell = cols[(i * 2 + 1) % NUM_COLS].container(border=True)
     cell.write("")
-    cell.altair_chart(chart, use_container_width=True)
+    cell.altair_chart(chart, width="stretch")
 
 ""
 ""
